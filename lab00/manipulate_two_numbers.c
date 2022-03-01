@@ -15,16 +15,6 @@
 // main
 int main(int argc, char *argv[])
 {
-	// ***** enter your code here ***** //
-	
-	// scan the terminal for inputs from the user
-	
-	// use the function bit_merge() to merge the numbers
-	
-	// use the function print_bits to print the sum to the terminal
-	
-	// ***** end of your code ***** //
-
 	uint16_t var1;
 	uint16_t var2;
 	

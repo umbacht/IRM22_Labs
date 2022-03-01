@@ -27,4 +27,4 @@ manipulate_two_numbers.o: manipulate_two_numbers.c
 
 # remove generated files and programs
 clean:
-	rm functions.o sum_numbers.o sum_numbers
+	rm functions.o sum_numbers.o sum_numbers manipulate_two_numbers.o
