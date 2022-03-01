@@ -18,14 +18,21 @@ int main(int argc, char *argv[])
 	uint16_t var1;
 	uint16_t var2;
 	
+	while(1)
+	{
 	scanf("%hx %hx", &var1, &var2);
-	//printf("%x", var1);
+	
+	if((var1 == 0x0000) && (var2 == 0x0000))
+	{
+		break;
+	}
 
 	uint16_t var3 = var1 +var2;
 
 	printf("merging 0x%x and 0x%x results in 0x%x \n", var1, var2, bit_merge(var1, var2));
 	printf("\tthe sum is ");
 	print_bits(var3);
+	}
 
 	return 0;
 }
