@@ -23,6 +23,16 @@ int main(int argc, char *argv[])
 	// use the function print_bits to print the sum to the terminal
 	
 	// ***** end of your code ***** //
+	uint16_t *var1;
+	uint16_t *var2;
+	
+	scanf("%hx %hx", &var1, &var2);
+	uint16_t *var3 = *var1+*var2;
+
+	printf("merging 0x%x and 0x%x results in 0x%x \n", *var1,*var2, bit_merge(*var1, *var2));
+	printf("\tthe sum is ");
+	print_bits(*var3);
+
 
 	return 0;
 }

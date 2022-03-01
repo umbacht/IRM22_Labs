@@ -25,4 +25,4 @@ void print_bits(uint16_t arg_word);
  * them to a uint32_t number by merging them.
  * The return value is a uint32_t number.
  */
- uint32_t bit_merge(uint16_t lsb, uint16_t msb);
+ uint32_t bit_merge(uint16_t lsb, uint32_t msb);
