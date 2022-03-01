@@ -1,5 +1,5 @@
 # add entries for all the additional programs
-all: sum_numbers hello manipulte_two_numbers
+all: sum_numbers hello manipulate_two_numbers
 
 # compile hello_world.c and make an executable program 
 hello: 
