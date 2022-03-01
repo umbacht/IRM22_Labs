@@ -35,9 +35,6 @@ int main(int argc, char *argv[])
 
 	int16_t c = 0x1234;
 	int16_t d = 0x2334;
-	
-	printf("mergin 0x%x and 0x%x results in 0x%x \n", c,d, bit_merge(c, d));
-	printf("\tthe sum is hex: 0");
 
 	return 0;
 }
