@@ -50,7 +50,6 @@ int32_t main()
   	if(first_int==0 && second_int==0){
   		break;
   	}
-
 		
   	// send arg via serial communication to the mC
     // type casting is again needed to match type
