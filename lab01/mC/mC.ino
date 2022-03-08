@@ -16,9 +16,13 @@ void setup() {
    Serial.begin(115200);
 
    int x=0;
-   for (x=0; x<8; x++){
-    pinMode(led_pins[x], OUTPUT);
+   for (x=0; x<8; x++){     //setting all GPIOs connected to the LED as OUTPUT pins
+    pinMode(led_pins[x], OUTPUT); 
    }
+   
+   pinMode(21, INPUT);      //setting GPIO that is connected to the switcher as an INPUT pin.
+   int switcher = digitalRead(21);  //reading value of de GPIO to distinguish switcher position
+   
    
    //_________________End - Part A_________________
 }
@@ -32,7 +36,7 @@ void loop() {
    if( Serial.available() )
    {
      // read into variable incoming
-     Serial.readBytes(((char*)&incoming),1);      
+     Serial.readBytes(((char*)&incoming),1); //in lab change this to 2 and print "incoming" below.      
      Serial.println(incoming);
      dl = incoming >> 4;
      Serial.println(dl); 
@@ -45,6 +49,7 @@ void loop() {
    //_________________Begin - Part C_______________
    // loop over all output (LED) pins and set state to HIGH/LOW
    // e.g. digitalWrite(1,LOW) means you set the digital pin 1 to LOW.
+   /*
    for (j =0;j<8;j++)
    {
      for (i=0;i<8;i++)
@@ -53,15 +58,35 @@ void loop() {
      delay(dl*mlt);
    }   // First iteration [HIGH LOW LOW LOW LOW LOW LOW LOW] second iteration [01000000], third iteration [00100000] and so on, a lighting LED moves through the array. 
    delay(dl*mlt*3);
+   */
+   
    //_________________End - Part C_________________
    
 
 
    //_________________Begin - Part D_______________
+    int arg_word_bin[8];
+    int n = incoming;
+    int u=0;
+    
+    for(u = 0; u <= 8; u++)
+    {
+      arg_word_bin[u] = n % 2;
+          n = n / 2;
+    }
 
-   /*
+    int q=0;
+    for(q=7; q>=0; q--){
+      if(arg_word_bin[q]==1){
+        digitalWrite(led_pins[q],HIGH);
+      }
+      else{
+        digitalWrite(led_pins[q],LOW);
+      }
+    }
+   
    delay(10);
-   */
+   
    //_________________End - Part D_________________
    
    }
