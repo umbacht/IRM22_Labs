@@ -54,12 +54,10 @@ int32_t main()
   	// send arg via serial communication to the mC
     // type casting is again needed to match type
     arg = (uint8_t) first_int + (uint8_t) second_int;
-    printf("%i %i %i %i %i", first_int, second_int, (uint8_t) first_int, (uint8_t) second_int, arg);
     print_bits(arg);
-
     n = serialport_writebyte(fd,((char*)&arg));
     if(n == -1 )
-    printf("Unable to write the port \n");
+        printf("Unable to write the port \n");
   }
   
   // close serial communication
