@@ -12,9 +12,14 @@ void setup() {
    incoming = 0;
 
    //_________________Begin - Part A_______________
-   /*
+   
    Serial.begin(115200);
-   */
+
+   int x=0;
+   for (x=0; x<8; x++){
+    pinMode(led_pins[x], OUTPUT);
+   }
+   
    //_________________End - Part A_________________
 }
 
@@ -24,16 +29,16 @@ void loop() {
    int i=0, j=0;
    
    //_________________Begin - Part B_______________
-   /*
    if( Serial.available() )
    {
      // read into variable incoming
-     Serial.readBytes(((char*)&incoming),1);
+     Serial.readBytes(((char*)&incoming),1);      
      Serial.println(incoming);
-     dl = incoming >> 4; 
+     dl = incoming >> 4;
+     Serial.println(dl); 
      mlt = incoming % (1<<4);
+     Serial.println(mlt); 
    }
-   */
    //_________________End - Part B_________________
    
    
@@ -43,10 +48,10 @@ void loop() {
    for (j =0;j<8;j++)
    {
      for (i=0;i<8;i++)
-       digitalWrite(led_pins[i],LOW);
-     digitalWrite(led_pins[j],HIGH);
+       digitalWrite(led_pins[i],LOW); // belongs to second for-loop
+     digitalWrite(led_pins[j],HIGH);  // does not belong to second for-loop
      delay(dl*mlt);
-   }   
+   }   // First iteration [HIGH LOW LOW LOW LOW LOW LOW LOW] second iteration [01000000], third iteration [00100000] and so on, a lighting LED moves through the array. 
    delay(dl*mlt*3);
    //_________________End - Part C_________________
    
