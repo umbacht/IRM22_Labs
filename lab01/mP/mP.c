@@ -4,13 +4,6 @@
 
 
 // ***** print_bits() can be implemented here ***** //
-		
-		
-		
-		
-		
-// *********************************************** //
-
 int print_bits(uint8_t arg_word)
 {
 	// only a simple implementation of a for loop is given
@@ -36,7 +29,6 @@ int print_bits(uint8_t arg_word)
         }
     }
     printf("\n");
-    return arg_word;
  }
 
 int32_t main()
@@ -45,7 +37,7 @@ int32_t main()
   int n2;
   int n;
   // initialization of serial communication, port and baud rate are specified
-  int fd = serialport_init( "/dev/cu.SLAB_USBtoUART", 115200);
+  int fd = serialport_init( "/dev/ttyUSB0", 115200);    // IMPORTANT CHANGE PORT IF USING MAC!!!!
   uint8_t arg = (uint8_t)245;
 
   int first_int;
@@ -53,31 +45,22 @@ int32_t main()
 
   while(1)
   {
-  	
-
-  	scanf("%x %x", &first_int, &second_int);
-
-  	//n1 = serialport_writebyte(fd,((char*)&first_int));
-  	//n2 = serialport_writebyte(fd,((char*)&second_int));
-
-  	//if(n1 == -1 || n2==-1)
-		//	printf("Unable to write the port \n");
+  	scanf("%i %i", &first_int, &second_int);
 
   	if(first_int==0 && second_int==0){
   		break;
   	}
 
-  	//printf("n1: %d", n1);
 		
   	// send arg via serial communication to the mC
-		// type casting is again needed to match type
-		//n = serialport_writebyte(fd,((char*)&arg));
-		//if(n == -1 )
-		//	printf("Unable to write the port \n");
-		int a = print_bits(first_int+second_int);
-		n= serialport_writebyte(fd,((char*)&a));
+    // type casting is again needed to match type
+    arg = (uint8_t) first_int + (uint8_t) second_int;
+    printf("%i %i %i %i %i", first_int, second_int, (uint8_t) first_int, (uint8_t) second_int, arg);
+    print_bits(arg);
 
-
+    n = serialport_writebyte(fd,((char*)&arg));
+    if(n == -1 )
+    printf("Unable to write the port \n");
   }
   
   // close serial communication
