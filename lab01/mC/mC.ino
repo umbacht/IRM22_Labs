@@ -2,7 +2,7 @@
 int dl, mlt, incoming;
 
 // define an array to access the LED Pins
-int led_pins[8] = {12, 27, 33, 15, 32, 14, 22, 23}; 
+int led_pins[10] = {12, 27, 33, 15, 32, 14, 22, 23}; 
 
 void setup() {
    
@@ -33,6 +33,7 @@ void loop() {
    int i=0, j=0;
    
    //_________________Begin - Part B_______________
+   
    if( Serial.available() )
    {
      // read into variable incoming
@@ -61,18 +62,19 @@ void loop() {
    }  
    
    delay(dl*mlt*3);
-   */
+  */
    
    //_________________End - Part C_________________
    
 
 
    //_________________Begin - Part D_______________
-    int arg_word_bin[8] = {0, 0, 0, 0, 0, 0, 0, 0}; //empty list is initialized. 
+    
+    int arg_word_bin[8]; //empty list is initialized. 
     int n = incoming;
     int u=0;
     
-    for(u = 0; u <= 8; u++)
+    for(u = 0; u <= 7; u++)
     {
       arg_word_bin[u] = n % 2;   //binary number of incoming is stored in arg_word_bin (bin order is still inverted at this point)
           n = n / 2;
