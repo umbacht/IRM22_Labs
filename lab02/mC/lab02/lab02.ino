@@ -16,7 +16,7 @@ void loop() {
   float min_voltage = 0;
   int resolution = 1024;
   float voltage_step = (max_voltage - min_voltage) / resolution;
-  int analogPin = 0;
+  int analogPin = 0;  //will be checked in the lab whether this is also the correct pin on the featherboard and not the online environment we call. (we want A0 = GPIO 26 = ADC2 = DAC2)
 
 
   // check if the serial port is available and if something is received from the serial port
