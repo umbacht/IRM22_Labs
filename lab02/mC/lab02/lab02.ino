@@ -12,18 +12,24 @@ void loop() {
 
 
   // initialize your parameters
+  float max_voltage = 5;
+  float min_voltage = 0;
+  int resolution = 1024;
+  float voltage_step = (max_voltage - min_voltage) / resolution;
+  int analogPin = 0;
 
 
-  // Check if the serial port is available and if a specific character is received from the serial port
-  // You can choose the character
-  if( )
+  // check if the serial port is available and if something is received from the serial port
+  if( Serial.read() == 'r')
   {
 
     // Read the the hall sensor voltage
+    unsigned int hall_read = analogRead(analogPin);
 
 
-
-    // Print the hall sensor voltage to the serial port
+    // Print the hall sensor voltage and the digital sampled value to the serial port
+    float hall_voltage = hall_read * voltage_step;
+    Serial.println(hall_voltage);
 
   }
  delay(20);
