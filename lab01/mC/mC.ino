@@ -36,7 +36,7 @@ void loop() {
    if( Serial.available() )
    {
      // read into variable incoming
-     Serial.readBytes(((char*)&incoming),2); //in lab change this to 2 and print "incoming" below.      
+     Serial.readBytes(((char*)&incoming),1); //in lab change this to 2 and print "incoming" below.      
      Serial.println(incoming);
      dl = incoming >> 4;
      Serial.println(dl); //dl is printed on the serial monitor
