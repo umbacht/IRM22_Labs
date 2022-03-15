@@ -23,13 +23,14 @@ void loop() {
   if( Serial.read() == 'r')
   {
     int i = 0;
-    float sum = 0;
-    for(i=0; i<20; i++){
+    int sum = 0;
+    for(i=0; i<50; i++){
       
       // Read the the hall sensor voltage
       sum += analogRead(analogPin);
       }    
-      Serial.println(sum/20);
+      int printing = sum/50;
+      Serial.print(printing);
     }
 
     // Print the hall sensor voltage and the digital sampled value to the serial port

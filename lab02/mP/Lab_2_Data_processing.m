@@ -1,7 +1,7 @@
 close all;
 clear all;
 
-data = readmatrix("voltage_data.txt");
+data = readmatrix("voltage_data_averaged200.txt");
 raw = data(1:end,1);
 
 mean_raw = mean(raw);
