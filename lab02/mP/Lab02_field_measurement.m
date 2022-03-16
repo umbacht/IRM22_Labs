@@ -24,5 +24,6 @@ plot(distance, approx_field, 'r')
 xlabel('Distance [m]');
 ylabel('Magnetic Field [T]');
 title('2.3.4.4 Magnetic Fieldstrength');
+legend('Measurement', 'Non Linear Least Squares Fit');
 
 hold off
