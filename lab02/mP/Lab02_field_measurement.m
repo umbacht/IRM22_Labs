@@ -1,9 +1,9 @@
 close all
 clear
 
-data = readmatrix("Measurements/field_strength_3.txt");
+data = readmatrix("Measurements/field_strength_2.txt");
 field = flip(data(1:end,1))./1000;
-distance = (14:2:40)'./1000;
+distance = (12:2:40)'./1000;
 z = distance;
 
 R = 0.02; % Radius of magnet
