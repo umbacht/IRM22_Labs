@@ -20,7 +20,6 @@ int main()
     // initialize the serial port on the port /dev/ttyUSB0, with baud rate 115200
     int serial_port = serialport_init( "/dev/cu.SLAB_USBtoUART", 115200);    // IMPORTANT CHANGE PORT IF USING MAC!!!!
     
-
     // write to the serial port to get a value
     int return_value_of_serialwrite = serialport_write(serial_port, &command_read); //sending char 'r'
 
