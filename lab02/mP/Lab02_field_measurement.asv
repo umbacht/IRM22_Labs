@@ -1,0 +1,32 @@
+close all
+clear
+
+data = readmatrix("Measurements/field_strength.txt");
+field = flip(data(1:end,1));
+distance = (0:2:28)';
+
+figure(1);
+scatter(distance, field);
+hold on
+
+xlabel('Distance [mm]');
+ylabel('Magnetic Field [mT]');
+title('2.3.4.4 Magnetic Fieldstrength');
+hold of
+
+R = 0.02; % Radius of magnet
+D = 0.01; % Thickness of magnet
+fun = @(x,xdata)x./2*((D+xdata)./(sqrt(R^2+(D+xdata).^2))-xdata./(sqrt(R^2+xdata.^2)));
+
+Br = lsqcurvefit(fun, 0.1756, distance, field);
+
+% plot data
+approx_field = Br./2*((D+distance)./(sqrt(R^2+(D+distance).^2))-distance./(sqrt(R^2+distance.^2)));
+
+figure(4)
+plot(distance, field, 'x')
+hold on
+plot(distance, approx_field,'r')
+
+
+hold off
