@@ -3,7 +3,7 @@ clear
 
 data = readmatrix("Measurements/field_strength_3.txt");
 field = flip(data(1:end,1))./1000;
-distance = (0:2:28)'./1000;
+distance = (14:2:40)'./1000;
 z = distance;
 
 R = 0.02; % Radius of magnet
