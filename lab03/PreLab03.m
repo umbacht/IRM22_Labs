@@ -2,7 +2,6 @@ close all;
 clear;
 
 %% PreLab 03
-%This was in silvans code: 
 opts = bodeoptions;
 opts.FreqUnits = 'Hz';
 
