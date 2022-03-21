@@ -7,12 +7,11 @@ opts.FreqUnits = 'Hz';
 
 %Hz to rad/s
 
-H = tf([1], [1/100 1]);
+H = tf([1], [1/(2*pi*100) 1]);
 
 figure(1)
 subplot(4,1,1:2)
 bodeplot(H, opts)
-%bode(H)
 grid on
 
 subplot(4,1,3)
