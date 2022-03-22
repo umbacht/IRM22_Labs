@@ -64,6 +64,8 @@ void loop() {
    	 i = 0;
 
     // use delayMicroseconds to change the frequency of your output
-    // delayMicroseconds(0);
+    float output_frequency_wanted = 20.0;
+    float delay_time = ((1/(120 * output_frequency_wanted/1000000)) - (18.85));
+    delayMicroseconds(delay_time);
   }
 }
