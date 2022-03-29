@@ -21,8 +21,7 @@ void setup() {
   Serial.begin(115200);
   // Begin PWM communication and set servo frequency
   pwm.begin();
-  //pwm.setOscillatorFrequency(27000000);
-  pwm.setPWMFreq(50);
+  pwm.setPWMFreq(50); //equals to 20ms 
   delay(200);
   
   
@@ -38,7 +37,6 @@ void loop() {
   // Set the servo position according to the mapped/scaled value
   
   poti_reading = analogRead(analog_pin);
-  //Serial.print(poti_reading);
   mapped_pwm_duration = map(poti_reading, 0, 4095, 550, 2250);
   Serial.println(mapped_pwm_duration);
   pwm.writeMicroseconds(1, mapped_pwm_duration);

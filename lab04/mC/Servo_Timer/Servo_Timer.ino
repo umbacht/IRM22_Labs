@@ -9,7 +9,7 @@ Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 int servo_num = 0;
 int servo_freq = 50;
 
-float pos = 0;  // current position, minimum (0°) & maximum (180°) pulse length of the servo in µs
+float pos = 0;                // current position initialized at 0, minimum (0°) & maximum (180°) pulse length of the servo in µs
 int MinPulse = 550;
 int MaxPulse = 2400;             
 float secondStep;             // unrounded pulse length increase in µs that corresponds to an increase of 1 second
@@ -52,13 +52,14 @@ void loop() {
     
     //_________________Begin - Advance_______________
     if (serialVariable == 'b'){
-      pos += 1.2;
+      pos += 1.2;           // as we enter a time in between 0 and 150s and wand to access the angle of the servo from 0 to 180 degree, we need to increase the position by 1.2 degree every second to arrive at 180degree after 150 seconds. 
     }
     
     int mapped_pwm_duration = map(pos, 0, 180, 550, 2250);
     Serial.println(mapped_pwm_duration);
     pwm.writeMicroseconds(1, mapped_pwm_duration);
-      //_________________End - Advance_______________
+     
+    //_________________End - Advance_______________
 
     
   }

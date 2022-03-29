@@ -20,18 +20,17 @@ int main()
 {   // Intialize serial port and variables
     int serial_port = serialport_init( "/dev/cu.SLAB_USBtoUART", 115200);
     
-    int correct_input_value = 0; // "boolean" value that switches to 1 when a suitable input has been received
-    int run_time;               // Amount of seconds the timer is supposed to run
-    int i;                       // Iteration variable
-    int n;
-    int q; 
+    int correct_input_value = 0;    // "boolean" value that switches to 1 when a suitable input has been received
+    int run_time;                   // Amount of seconds the timer is supposed to run
+    int i;                          // Iteration variable
+    int n;                          // returnvariable for serialport writebyte reset
+    int q;                          // returnvariable for serialport writebyte increase
 
-    char* reset = "a";           // Character to be sent through the serial port to reset the servo to its 0° position.
-    char* increase = "b";        // Character to be sent through the serial port to tell the Arduino to advance by 1 second.
+    char* reset = "a";              // Character to be sent through the serial port to reset the servo to its 0° position.
+    char* increase = "b";           // Character to be sent through the serial port to tell the Arduino to advance by 1 second.
     
     // loop until the user wants to quit the timer program
     while (1) {
-        
         
         /*_________________Begin - Input Section_________________*/
         //At startup: ask the user how long you want the watch to run (between 0 and 150 seconds) or if you want to quit the program.
@@ -49,7 +48,7 @@ int main()
             n = serialport_writebyte(serial_port, ((char*)reset));
 
             if (n == -1){
-                printf("Unable to write to the port \n");
+                printf("Unable to write to the port. \n");
             }
         }
         else{
@@ -58,20 +57,17 @@ int main()
         /*_________________End - Reset Section_________________*/
         
     
-		delay(1); // Wait a second before starting the timer
+		delay(1); // Wait 1 second before starting the timer
         printf("%d seconds will be timed, starting now! \n", run_time);
         
         
         /*_________________Begin - Advance Section_________________*/
-        int counter=0;
         for(i=0; i<run_time; i++){
             q = serialport_writebyte(serial_port, ((char*)increase));
             if (q == -1){
                 printf("Unable to write to the port \n");
             }
             delay(1);
-            //printf("%i", counter);
-            counter +=1;
         }
         
         /*_________________End - Advance Section_________________*/
