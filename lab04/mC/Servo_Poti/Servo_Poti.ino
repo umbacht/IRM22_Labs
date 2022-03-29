@@ -37,7 +37,7 @@ void loop() {
   // Set the servo position according to the mapped/scaled value
   
   poti_reading = analogRead(analog_pin);
-  mapped_pwm_duration = map(poti_reading, 0, 4095, 550, 2250);
+  mapped_pwm_duration = map(poti_reading, 0, 4095, 550, 2250); //the max range of 2400 had to be corrected to 2250 for the setup in the lab (discussed with alex)
   Serial.println(mapped_pwm_duration);
   pwm.writeMicroseconds(1, mapped_pwm_duration);
   

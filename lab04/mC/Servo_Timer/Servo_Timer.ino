@@ -55,7 +55,7 @@ void loop() {
       pos += 1.2;           // as we enter a time in between 0 and 150s and wand to access the angle of the servo from 0 to 180 degree, we need to increase the position by 1.2 degree every second to arrive at 180degree after 150 seconds. 
     }
     
-    int mapped_pwm_duration = map(pos, 0, 180, 550, 2250);
+    int mapped_pwm_duration = map(pos, 0, 180, 550, 2250); //the max range of 2400 had to be corrected to 2250 for the setup in the lab (discussed with alex)
     Serial.println(mapped_pwm_duration);
     pwm.writeMicroseconds(1, mapped_pwm_duration);
      
