@@ -8,8 +8,8 @@ servo_struct servo;
 int load_parameters(){
     // System Dimensions
 // All lengths in [mm]
-// Change this if you wan't to change plate height:
-  bbs.plate_height = 100;
+// Change this if you want to change plate height:
+  bbs.plate_height = 120;
 // DON'T CHANGE THESE:
   bbs.R_plate_joint = 113.24;
   bbs.R_base_servo = 102.92;
@@ -26,12 +26,12 @@ int load_parameters(){
 // **These are dummy parameters and need to be replaced with your calibration**:
 // When pictures are taken in PixyMon, their resolution varies. This factor
 // accounts for this scaling, such that the bbs can be copied directly
-    bbs.calibration_image_scale = 2;
-    bbs.focal_length = 500;
-    bbs.radial_distortion_coeff[0] = -0.2;
-    bbs.radial_distortion_coeff[1] = 0.2;
-    bbs.distortion_center[0] = 500;
-    bbs.distortion_center[1] = 300;
+    bbs.calibration_image_scale = 3.5211;
+    bbs.focal_length = 457.3237;
+    bbs.radial_distortion_coeff[0] = -0.2495;
+    bbs.radial_distortion_coeff[1] = 0.0554;
+    bbs.distortion_center[0] = 560.8784;
+    bbs.distortion_center[1] = 378.7254;
 
   // Adjust these if lens is removed and reinserted (when you have offset that changes)
   bbs.cam_offset[0] = 0;
@@ -50,8 +50,8 @@ int load_servo() {
 
     // Calibration of the mounting offset. Should be redone if servo.arms were remounted. Sum of bias should be as close to 0 as possible.
     // modified for Napf:
-    servo.bias_A = -10;
-    servo.bias_B = 0;
+    servo.bias_A = -12;
+    servo.bias_B = -1;
     servo.bias_C = -1;
     
     // for Rigi:

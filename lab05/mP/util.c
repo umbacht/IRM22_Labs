@@ -105,8 +105,38 @@ int cameraCalibration(const int x_in, const int y_in, double* x_out, double* y_o
     /* ********************* */
     /* Insert your Code here */
     /* ********************* */
-    
-  return 0;
+
+    // scaling
+    int x_in_scaled = x_in * bbs.calibration_image_scale;
+    int y_in_scaled = y_in * bbs.calibration_image_scale;
+
+    // normalize
+    double x_in_norm = (x_in_scaled - bbs.distortion_center[0]) / bbs.focal_length;
+    double y_in_norm = (y_in_scaled - bbs.distortion_center[1]) / bbs.focal_length;
+
+    // normalized distortion radius
+    double r = sqrt(pow(x_in_norm, 2) + pow(y_in_norm, 2));
+
+    // undistort
+    double x_und = x_in_norm / (1 + bbs.radial_distortion_coeff[0] * pow(r, 2) + bbs.radial_distortion_coeff[1] * pow(r, 4));
+    double y_und = y_in_norm / (1 + bbs.radial_distortion_coeff[0] * pow(r, 2) + bbs.radial_distortion_coeff[1] * pow(r, 4));
+
+    //
+    double x_pixel_value = bbs.focal_length * x_und;
+    double y_pixel_value = bbs.focal_length * y_und;
+
+    // find z
+    double z = fabs(bbs.cam_offset[2]) + bbs.plate_height + bbs.ball_radius;
+
+    // find coordinates
+    double x_out_cf = x_pixel_value * z / bbs.focal_length;
+    double y_out_cf = y_pixel_value * z / bbs.focal_length;
+
+    // world frame
+    *x_out = - x_out_cf + bbs.cam_offset[0];
+    *y_out = -y_out_cf + bbs.cam_offset[1];
+
+    return 0;
 };
 
 
