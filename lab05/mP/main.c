@@ -15,7 +15,7 @@ int main(){
   printf("Opening serial port...\n");
 
   // Initialize the serial port
-    const char* port= "/dev/ttyUSB0";//vm: "/dev/ttyUSB0", mac: "/dev/cu.SLAB_USBtoUART"
+    const char* port= "/dev/cu.SLAB_USBtoUART";//vm: "/dev/ttyUSB0", mac: "/dev/cu.SLAB_USBtoUART"
   int fd = serialport_init(port, 115200);
   if (fd == -1){
       printf("Could not open the port.\n");
