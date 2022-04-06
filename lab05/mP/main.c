@@ -90,11 +90,11 @@ int main(){
         // read ball position
         flag_2 = readFromPixy(fd, &pixy_return_value, &x, &y);
         if (flag_2 == -1) {
-            printf("Pixy Error occurred");
+            printf("Pixy Error occurred\n");
             return 0;
         }
         if (pixy_return_value == 0) {
-            printf("OBJECT NOT DETECTED");
+            printf("OBJECT NOT DETECTED\n");
         }
 
         // to world frame
