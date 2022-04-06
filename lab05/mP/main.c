@@ -15,7 +15,7 @@ int main(){
   printf("Opening serial port...\n");
 
   // Initialize the serial port
-    const char* port= "/dev/ttyUSB0";//vm: "/dev/ttyUSB0", mac: "/dev/cu.SLAB_USBtoUART"
+    const char* port= "/dev/cu.SLAB_USBtoUART";//vm: "/dev/ttyUSB0", mac: "/dev/cu.SLAB_USBtoUART"
   int fd = serialport_init(port, 115200);
   if (fd == -1){
       printf("Could not open the port.\n");
@@ -40,7 +40,7 @@ int main(){
   //////////////////////////////
   int task_selection = 0;
   printf("Select Task: ");
-  scanf("%d", &task_selection);
+  scanf("%i", &task_selection);
 
   //////////////////////////////
   /////////// Task 1 ///////////
@@ -53,13 +53,22 @@ int main(){
     //initalize variables:
     double plate_angles[] = {0,0};
     double servo_angles[] = {0,0,0};
-     
-    /* ********************* */
-    /* Insert your Code here */
-    /* ********************* */
 
-  }
+    int again = 1;
 
+    while(again==1){
+      printf("Give me Theta and Phi:");  
+      scanf("%lf%lf", &plate_angles[0], &plate_angles[1]);
+      if(inverseKinematics(plate_angles, servo_angles)==0){
+        printf("Theta: %f, Phi: %f, A: %f, B: %f, C: %f\n", plate_angles[0], plate_angles[1], servo_angles[0], servo_angles[1], servo_angles[2]);
+      }else{
+      printf("Out of bounds");
+      printf("Again? 1: Yes, 2: No");
+      scanf("%i",&again);
+      }
+    }
+    }
+    
   //////////////////////////////
   /////////// Task 2 ///////////
   //////////////////////////////

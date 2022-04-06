@@ -50,8 +50,8 @@ int load_servo() {
 
     // Calibration of the mounting offset. Should be redone if servo.arms were remounted. Sum of bias should be as close to 0 as possible.
     // modified for Napf:
-    servo.bias_A = -3;
-    servo.bias_B = 4;
+    servo.bias_A = -10;
+    servo.bias_B = 0;
     servo.bias_C = -1;
     
     // for Rigi:
