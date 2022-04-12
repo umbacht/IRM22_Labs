@@ -48,8 +48,8 @@ int inverseKinematics(const double* plate_angles, double* servo_angles) {
   // Function to compute servo angles from the plate angles. Takes 2 pointers as input
 
   float L1 = bbs.l1;            //Length of Segment 1 in mm
-  float L2 = bbs.l2;           //Length of Segment 2 in mm
-  float P_z = bbs.plate_height;          //Height of Plate center in mm
+  float L2 = bbs.l2;            //Length of Segment 2 in mm
+  float P_z = bbs.plate_height;           //Height of Plate center in mm
   float R = bbs.R_plate_joint;            //Distance from Plate center to anchor points A,B and C in mm
   float beta[3];            //Initialize array to store beta servo angles
   
@@ -57,8 +57,8 @@ int inverseKinematics(const double* plate_angles, double* servo_angles) {
   Transform plate angles from degrees to radians for calculation
   --------------------------------------------------------------------------*/
   float plate_angles_rad[2];
-  plate_angles_rad[0] = plate_angles[0]*M_PI/180;
-  plate_angles_rad[1] = plate_angles[1]*M_PI/180;
+  plate_angles_rad[0] = plate_angles[0]*M_PI/180; // Phi
+  plate_angles_rad[1] = plate_angles[1]*M_PI/180; // Theta
   
   /*--------------------------------------------------------------------------
   // Calculate the z-offsets of each anchor point according to the formulas

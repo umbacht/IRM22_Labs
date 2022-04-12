@@ -9,7 +9,7 @@ int load_parameters(){
     // System Dimensions
 // All lengths in [mm]
 // Change this if you want to change plate height:
-  bbs.plate_height = 120;
+  bbs.plate_height = 100;
 // DON'T CHANGE THESE:
   bbs.R_plate_joint = 113.24;
   bbs.R_base_servo = 102.92;
@@ -51,7 +51,7 @@ int load_servo() {
     // Calibration of the mounting offset. Should be redone if servo.arms were remounted. Sum of bias should be as close to 0 as possible.
     // modified for Napf:
     servo.bias_A = -12;
-    servo.bias_B = -1;
+    servo.bias_B = -5;
     servo.bias_C = -1;
     
     // for Rigi:

@@ -57,15 +57,15 @@ int main(){
     int again = 1;
 
     while(again==1){
-      printf("Give me Theta and Phi:\n");
+      printf("Give me Phi and Theta:\n");
       scanf("%lf%lf", &plate_angles[0], &plate_angles[1]);
       if(inverseKinematics(plate_angles, servo_angles)==0){
-        printf("Theta: %f, Phi: %f, A: %f, B: %f, C: %f\n", plate_angles[0], plate_angles[1], servo_angles[0], servo_angles[1], servo_angles[2]);
+        printf("Phi: %f, Theta: %f, A: %f, B: %f, C: %f\n", plate_angles[0], plate_angles[1], servo_angles[0], servo_angles[1], servo_angles[2]);
         servoCommand(fd, servo_angles);
       }else{
       printf("Out of bounds");
       }
-      printf("Again? 1: Yes, 2: No");
+      printf("Again? 1: Yes, 2: No\n");
       scanf("%i",&again);
     }
   }
