@@ -46,7 +46,17 @@ grid on
 %size of the output array. What would be a sensible value to use
 %for the first value of the difference array?
 
-% Your code here
+x_velocity = (x_raw(2:end)-x_raw(1:end-1))/dt;
+
+figure('Name','Clipped Range')
+plot(t(2:end),x_velocity)
+xlim([10 15])
+title('Clipped Velocity Trajectory')
+xlabel('t [s]')
+ylabel('[mm/s]')
+legend('x velocity');
+grid on
+
 
 %% Q2:
 %TODO: Filter the position values using the moving average method.
@@ -57,6 +67,26 @@ grid on
 
 %Hint 2: finddelay(x,y) estimates the delay between two signals in frames.
 
-% Your code here
+window_size = [1 5 10 20 30 50 100];
 
+figure('Name','Clipped Range')
+for i = (1:length(window_size))
+    x_filtered = movmean(x_raw, [window_size(i)-1 0]);
+    x_filtered_velocity = (x_filtered(2:end)-x_filtered(1:end-1))/dt;
+    plot(t(2:end),x_filtered_velocity)
+    %legend(append('x_{velocity, filtered}, window size: ', string(window_size(i))));
+    hold on
+end
+Legend = cell(length(window_size),1);
+for i = (1:length(window_size))
+    Legend{i}=strcat('x velocity, filtered, window size: ', num2str(window_size(i)));
+end
+
+legend(Legend)
+xlim([10 12])
+title('Clipped filtered Velocity')
+xlabel('t [s]')
+ylabel('[mm]')
+grid on
+hold off
 
