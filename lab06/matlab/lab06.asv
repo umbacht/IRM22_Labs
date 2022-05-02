@@ -47,11 +47,11 @@ grid on;
 disp("Prelab Q1")
 disp("Impulse response: response of the OL system to a brief impulse input signal.")
 disp("The brief impulse sets the ball in motion. After that impulse, the plate is in its original (non tilted) position again, however, the ball" + ...
-    "keeps on rolling given the initial impulse for movement. As the system will not converge to 0, it is unstable.")
+    "keeps on rolling given the initial impulse for movement. As the sy")
 disp("Step response: response of the OL system as reaction to a step signal on the input.")
 disp("By setting a step input, the system reacts by tilting the plate to move the ball. " + ...
     "Without feedback however, the system will not track the position of the ball and just remain in its tilted position. " + ...
-    "This leads to a continuous acceleration of the ball. Also under the step input the system is unstable as it does not converge to 0.")
+    "This leads to a continuous acceleration of the ball.")
 
 
 
@@ -167,7 +167,7 @@ disp("The system will become more unstable and therefore more difficult to contr
 disp("Prelab Q4")
 disp("The motor saturation can lead to an integrator wind-up. By having too high a set point" + ...
     "that the system can physically not follow, the integral error term will increase. Due to that" + ...
-    "the system can overshoot and continue to accumulate its error continuously over time. ")
+    "the system can overshoot and continue to accumulate its error steadily over time. ")
 
 
 
