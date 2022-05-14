@@ -1,23 +1,104 @@
 #include "util.h"
+#include <stdio.h>
+
 
 int inverseKinematics(const double* plate_angles, double* servo_angles) {
-  //TODO: copy + paste your previous work
-    
-    /* ********************* */
-    /* Insert your Code here */
-    /* ********************* */
 
+  // Load parameters R, L_1, L_2, P_z etc. from parameters file. Example: double R = bbs.R_plate_joint;
+  // Then implement inverse kinematics similar to prelab
+
+  
+  // Function to compute servo angles from the plate angles. Takes 2 pointers as input
+
+  float L1 = bbs.l1;            //Length of Segment 1 in mm
+  float L2 = bbs.l2;            //Length of Segment 2 in mm
+  float P_z = bbs.plate_height;           //Height of Plate center in mm
+  float R = bbs.R_plate_joint;            //Distance from Plate center to anchor points A,B and C in mm
+  float beta[3];            //Initialize array to store beta servo angles
+  
+  /*--------------------------------------------------------------------------
+  Transform plate angles from degrees to radians for calculation
+  --------------------------------------------------------------------------*/
+  float plate_angles_rad[2];
+  plate_angles_rad[0] = plate_angles[0]*M_PI/180; // Phi
+  plate_angles_rad[1] = plate_angles[1]*M_PI/180; // Theta
+  
+  /*--------------------------------------------------------------------------
+  // Calculate the z-offsets of each anchor point according to the formulas
+  --------------------------------------------------------------------------*/
+  
+  float delta_z[3];
+  delta_z[0] = R*sin(plate_angles_rad[0]);
+  delta_z[1] = (-0.5*R*sin(plate_angles_rad[0])+(sqrt(3)/2)*R*sin(plate_angles_rad[1]));
+  delta_z[2] = (-0.5*R*sin(plate_angles_rad[0])-(sqrt(3)/2)*R*sin(plate_angles_rad[1]));
+  
+  /*--------------------------------------------------------------------------
+  // Calculate the beta-servo angles according to the law of cosines
+  --------------------------------------------------------------------------*/
+  
+  beta[0] = acos((pow(P_z+delta_z[0],2)+pow(L1,2)-pow(L2,2))/(2*L1*(P_z+delta_z[0])));
+  beta[1] = acos((pow(P_z+delta_z[1],2)+pow(L1,2)-pow(L2,2))/(2*L1*(P_z+delta_z[1])));
+  beta[2] = acos((pow(P_z+delta_z[2],2)+pow(L1,2)-pow(L2,2))/(2*L1*(P_z+delta_z[2])));
+  
+  /*-------------------------------------------------------------------------- 
+  // Return -1 if any of the angles is not defined
+  --------------------------------------------------------------------------*/ 
+  
+  if(isnan(beta[0])||isnan(beta[2])||isnan(beta[3])){
+    return -1;
+  }
+  
+  /*-------------------------------------------------------------------------- 
+  // Calculate the alpha servo angles and transform them back to degrees
+  --------------------------------------------------------------------------*/
+  servo_angles[0] = (M_PI/2 - beta[0])*180/M_PI;
+  servo_angles[1] = (M_PI/2 - beta[1])*180/M_PI;
+  servo_angles[2] = (M_PI/2 - beta[2])*180/M_PI;
+    
   return 0;
 }
 
 int cameraCalibration(const int x_in, const int y_in, double* x_out, double* y_out){
-   //TODO: copy + paste your previous work
+
+    // implement camera calibration code
+    // make sure to multiply the raw pixy2 coordinates with the scaling factor (ratio between
+    // image fed to matlab for calibration and pixy2 resolution): bbs.calibration_image_scale.
     
     /* ********************* */
     /* Insert your Code here */
     /* ********************* */
 
-  return 0;
+    // scaling
+    int x_in_scaled = x_in * bbs.calibration_image_scale;
+    int y_in_scaled = y_in * bbs.calibration_image_scale;
+
+    // normalize
+    double x_in_norm = (x_in_scaled - bbs.distortion_center[0]) / bbs.focal_length;
+    double y_in_norm = (y_in_scaled - bbs.distortion_center[1]) / bbs.focal_length;
+
+    // normalized distortion radius
+    double r = sqrt(pow(x_in_norm, 2) + pow(y_in_norm, 2));
+
+    // undistort
+    double x_und = x_in_norm / (1 + bbs.radial_distortion_coeff[0] * pow(r, 2) + bbs.radial_distortion_coeff[1] * pow(r, 4));
+    double y_und = y_in_norm / (1 + bbs.radial_distortion_coeff[0] * pow(r, 2) + bbs.radial_distortion_coeff[1] * pow(r, 4));
+
+    //
+    double x_pixel_value = bbs.focal_length * x_und;
+    double y_pixel_value = bbs.focal_length * y_und;
+
+    // find z
+    double z = fabs(bbs.cam_offset[2]) + bbs.plate_height + bbs.ball_radius;
+
+    // find coordinates
+    double x_out_cf = x_pixel_value * z / bbs.focal_length;
+    double y_out_cf = y_pixel_value * z / bbs.focal_length;
+
+    // world frame
+    *x_out = - x_out_cf + bbs.cam_offset[0];
+    *y_out = -y_out_cf + bbs.cam_offset[1];
+
+    return 0;
 };
 
 double discreteDerivative(const double dt, const double * x){
@@ -34,8 +115,20 @@ double movingAverage(const int n, const double * x){
     /* ********************* */
     /* Insert your Code here */
     /* ********************* */
-    
-  return 0;
+    // n: filter length, x: array to be filtered; at least of length n
+
+  double tmp = 0;
+  if (n>sizeof(x)){
+    printf("ERROR: N larger then array");
+    return -1;
+  }
+
+  for (int i = 0; i<n;i++){
+    tmp += x[i];
+  }
+  double avrg = tmp/n;
+
+  return avrg;
 };
 
 double butterWorth(const double * x, const double * y){

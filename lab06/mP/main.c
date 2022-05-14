@@ -57,31 +57,57 @@ int main(){
 
   if(task_selection == 1){
       /* Test inverse kinematics via
-       terminal */
-      
+      terminal */
+        
       //initalize variables:
       double plate_angles[] = {0,0};
       double servo_angles[] = {0,0,0};
-      
-      /* ********************* */
-      /* Insert your Code here (From Lab 05)*/
-      /* ********************* */
-  }
+
+      int again = 1;
+
+      while(again==1){
+        printf("Give me Phi and Theta:\n");
+        scanf("%lf%lf", &plate_angles[0], &plate_angles[1]);
+        if(inverseKinematics(plate_angles, servo_angles)==0){
+          printf("Phi: %f, Theta: %f, A: %f, B: %f, C: %f\n", plate_angles[0], plate_angles[1], servo_angles[0], servo_angles[1], servo_angles[2]);
+          servoCommand(fd, servo_angles);
+        }else{
+        printf("Out of bounds");
+        }
+        printf("Again? 1: Yes, 2: No\n");
+        scanf("%i",&again);
+      }
+    }
 
   //////////////////////////////
   /////////// Task 2 ///////////
   //////////////////////////////
   /*Test camera calibration*/
   if(task_selection == 2){
+      
       //initalize variables:
+      int x;
+      int y;
+      double x_w;
+      double y_w;
+      int pixy_return_value;
+      int flag_2;
       
-      /* ********************* */
-      /* Insert your Code here (From Lab 05) */
-      /* ********************* */
-      
-      
-  }
+        // read ball position
+        flag_2 = readFromPixy(fd, &pixy_return_value, &x, &y);
+        if (flag_2 == -1) {
+            printf("Pixy Error occurred\n");
+            return 0;
+        }
+        if (pixy_return_value == 0) {
+            printf("OBJECT NOT DETECTED\n");
+        }
 
+        // to world frame
+        cameraCalibration(x, y, &x_w, & y_w);
+        printf("x_pixy: %i, y_pixy: %i\nx_w: %lf, y_W: %lf\n", x, y, x_w, y_w);
+
+  }
 
   //////////////////////////////
   /////// Task 4/5/6 ///////////
@@ -95,13 +121,22 @@ int main(){
     double k_i = 0;
 
     //TODO: Intialize filter window size
-    int n_pos = 0;
-    int n_vel = 0;
+    int n_pos = 20;
+    int n_vel = 20; // MAKE SURE THIS IS CORRECT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     // TODO: Ask for user input to change PID parameters
       /* ********************* */
       /* Insert your Code here */
       /* ********************* */
+    
+    int default_pid = 0;
+    printf("PID Controler, use default parameters?");
+    scanf("%i",&default_pid);
+    
+    if (default_pid==0){
+      printf("Enter PID parameters: P I D");
+      scanf("%lf%lf%lf",&k_p, &k_i, &k_d);
+    }
 
     // Variables for Pixy2
     int flag = 0;       //flag that detects if the pixy cam can detect a ball
@@ -178,11 +213,16 @@ int main(){
         /* ********************* */
         /* Insert your Code here */
         /* ********************* */
-      
+
       //TODO: Get current sampling time dt
+      dt = (end - start)/1000000;
+      start = getMicroseconds();
 
       //TODO: Get the coordinates of the ball in the Pixy Camera frame (Use a function in util.c)
-      
+      readFromPixy(fd, &flag, &x_px, &y_px);
+
+
+
       //If anything is detected, enter if-bracket
       if(flag){
         //TODO: Use camera calibration form Lab05
@@ -220,6 +260,8 @@ int main(){
         logger(fp, end, current_time, dt, k_p, k_d, k_i, x_ref, y_ref, vx_ref,
                vy_ref, x_raw[0], y_raw[0], x[0], y[0], vx_raw[0], vy_raw[0],
                vx[0], vy[0], plate_angles, servo_angles, x_integ, y_integ);
+
+        end = getMicroseconds();
 
       }
     }
