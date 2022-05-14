@@ -194,7 +194,7 @@ int main(){
     double u_y = 0;
     double e_x = 0;
     double e_y = 0;
-
+    double integ_windup_limit = 2000;
     //Logfile with datetime as filename
     char datetime[80];
     strftime(datetime,80,"%Y-%m-%d_%H-%M-%S_pid_log.txt", info);
@@ -258,7 +258,9 @@ int main(){
           case 5: stepResponse(current_time, &x_ref, &y_ref, &vx_ref, &vy_ref);
                   /*TODO: Postlab Q5 step response reference  --> use function in util.h */
                   break;
-          case 6: /*TODO: Postlab Q6 circular trajectory reference --> implement & use function in util.h */break;
+          case 6: circularTrajectory(current_time,&x_ref, &y_ref, &vx_ref, &vy_ref);
+                  /*TODO: Postlab Q6 circular trajectory reference --> implement & use function in util.h */
+                  break;
         }
         e_x = x_ref - x[0];
         e_y = y_ref - y[0];
@@ -268,17 +270,18 @@ int main(){
         if (current_time > 0.5){
           x_integ += e_x * dt;
           y_integ += e_y * dt;
-          if (x_integ >= 50){
-            x_integ = 50;
-          } else if (x_integ <= -50)
+
+          if (x_integ >= integ_windup_limit){
+            x_integ = integ_windup_limit;
+          } else if (x_integ <= -integ_windup_limit)
           {
-            x_integ = -50;
+            x_integ = -integ_windup_limit;
           }
-          if (y_integ >= 50){
-            y_integ = 50;
-          } else if (y_integ <= -50)
+          if (y_integ >= integ_windup_limit){
+            y_integ = integ_windup_limit;
+          } else if (y_integ <= -integ_windup_limit)
           {
-            y_integ = -50;
+            y_integ = -integ_windup_limit;
           }
           
         }

@@ -166,6 +166,13 @@ int circularTrajectory(const double current_time, double* x_ref, double* y_ref,
     /* ********************* */
     /* Insert your Code here */
     /* ********************* */
+  if (current_time < traj_start || current_time > traj_start+ num_of_traj*period){
+  *x_ref = 0; *y_ref = 0;
+  } else{
+  *x_ref = cos(2*M_PI*current_time/period)*R; *y_ref = sin(2*M_PI*current_time/period)*R;
+  }
+  *vx_ref = 0;
+  *vy_ref = 0;
 
   return 0;
 };
