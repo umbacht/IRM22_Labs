@@ -300,9 +300,9 @@ int main(){
         //Open logging file and log everything to textfile
         fp = fopen(datetime, "a");
 
-        // logger(fp, end, current_time, dt, k_p, k_d, k_i, x_ref, y_ref, vx_ref,
-        //        vy_ref, x_raw[0], y_raw[0], x[0], y[0], vx_raw[0], vy_raw[0],
-        //        vx[0], vy[0], plate_angles, servo_angles, x_integ, y_integ);
+        logger(fp, end, current_time, dt, k_p, k_d, k_i, x_ref, y_ref, vx_ref,
+               vy_ref, x_raw[0], y_raw[0], x[0], y[0], vx_raw[0], vy_raw[0],
+               vx[0], vy[0], plate_angles, servo_angles, x_integ, y_integ);
       }
     }
   }
