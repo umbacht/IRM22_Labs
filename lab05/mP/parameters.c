@@ -9,7 +9,7 @@ int load_parameters(){
     // System Dimensions
 // All lengths in [mm]
 // Change this if you want to change plate height:
-  bbs.plate_height = 120;
+  bbs.plate_height = 100;
 // DON'T CHANGE THESE:
   bbs.R_plate_joint = 113.24;
   bbs.R_base_servo = 102.92;

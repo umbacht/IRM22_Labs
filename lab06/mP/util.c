@@ -119,8 +119,7 @@ double movingAverage(const int n, const double * x){
 
   double tmp = 0;
   if (n>sizeof(x)){
-    printf("ERROR: N larger then array");
-    return -1;
+    printf("ERROR: N larger then array\n");
   }
 
   for (int i = 0; i<n;i++){

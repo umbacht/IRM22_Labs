@@ -4,7 +4,7 @@
 #include <assert.h>
 #include "invkin.h"
 #include "feather_serial.h"
-#define M_PI 3.14159265358979323846
+//#define M_PI 3.14159265358979323846
 
 /* Parameter structs: two new types are defined which
    will be used to access calibration parameters. The
