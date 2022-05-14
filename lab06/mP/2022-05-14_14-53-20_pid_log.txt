@@ -1,5 +1,0 @@
-#Task Selector: 4
-#PID Parameters: kp: 0.07, kd: 0.04, ki: 0.03
-#n_pos: 20
-#n_vel: 5
-t x_ref y_ref vx_ref vy_ref x_raw y_raw x y vx_raw vy_raw vx vy

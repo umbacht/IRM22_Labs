@@ -107,6 +107,7 @@ double discreteDerivative(const double dt, const double * x){
     /* ********************* */
     /* Insert your Code here */
     /* ********************* */
+
   return 0;
 };
 
@@ -118,16 +119,11 @@ double movingAverage(const int n, const double * x){
     // n: filter length, x: array to be filtered; at least of length n
 
   double tmp = 0;
-  if (n>sizeof(x)){
-    printf("ERROR: N larger then array\n");
-  }
 
   for (int i = 0; i<n;i++){
     tmp += x[i];
   }
-  double avrg = tmp/n;
-
-  return avrg;
+  return tmp/n;
 };
 
 double butterWorth(const double * x, const double * y){
