@@ -57,7 +57,7 @@ ylabel('[mm/s]')
 legend('x velocity');
 grid on
 
-%% Q2:
+%% Q2: Part 1: Positional Filtering
 %TODO: Filter the position values using the moving average method.
 
 %%Hint 1: Matlab provides the function movmean() for this, but make sure that
@@ -69,19 +69,20 @@ grid on
 window_size = [1 5 10 20 30 50 100];
 
 x_filtered_position = [];
+delay = [];
 
-figure('Name','Clipped Range')
+figure('Name','Clipped filtered Position')
 for i = (1:length(window_size))
     x_filtered = movmean(x_raw, [window_size(i)-1 0]);
     x_filtered_position = [x_filtered_position, x_filtered];
-    delay = finddelay(x_raw, x_filtered, 1000);
-    disp("Window size: " + num2str(window_size(i)) + "; Estimated Delay: " + num2str(delay))
+    delay = [delay, finddelay(x_raw, x_filtered, 1000) * dt];
+    disp("Window size: " + num2str(window_size(i)) + "; Estimated Delay: " + num2str(delay(i)))
     plot(t,x_filtered)
     hold on
 end
 Legend = cell(length(window_size),1);
 for i = (1:length(window_size))
-    Legend{i}=strcat('x position, filtered, window size: ', num2str(window_size(i)));
+    Legend{i}=strcat('x pos (filtered), window size: ', num2str(window_size(i)), ', delay: ', num2str(delay(i)), 's');
 end
 
 legend(Legend)
@@ -92,73 +93,34 @@ ylabel('[mm]')
 grid on
 hold off
 
-%% Q2
-figure('Name','Clipped Range')
-for i = (1:length(window_size))
+%% Q2: Part 2: Estimated Velocity Trajectory (with unfiltered positions)
+figure('Name','Clipped Velocity Trajectory (unfiltered positions)')
+plot(t(2:end),x_velocity)
+xlim([10 12])
+title('Clipped Velocity Trajectory (unfiltered positions)')
+xlabel('t [s]')
+ylabel('[mm/s]')
+legend('x velocity');
+grid on
 
+%% Q2: Part 3: Estimated Velocity Trajectory (with filtered positions)
+figure('Name','Clipped Velocity Trajectory (filtered positions)')
+for i = (2:length(window_size))
     vx_filtered_position = (x_filtered_position(2:end,i)-x_filtered_position(1:end-1,i))/dt;
     plot(t(2:end),vx_filtered_position)
     hold on
 end
 
-Legend = cell(length(window_size),1);
-for i = (1:length(window_size))
-    Legend{i}=strcat('x Velocity, filtered Position, window size: ', num2str(window_size(i)));
+Legend = cell(length(window_size)-1,1);
+for i = (2:length(window_size))
+    Legend{(i-1)}=strcat('x vel (filtered position), window size filter: ', num2str(window_size(i)), ', delay: ', num2str(delay(i)), 's');
 end
 
-legend(Legend)
+legend(Legend, 'Location','south')
 xlim([10 12])
-title('Clipped filtered Position, Velocity')
+title('Clipped n, Clipped Velocity Trajectory (filtered positions)')
 xlabel('t [s]')
 ylabel('[mm]')
 grid on
 hold off
-
-
-
-
-
-
-
-
-
-
-%% this is wrong:
-%% Q234234:
-%TODO: Filter the position values using the moving average method.
-
-%%Hint 1: Matlab provides the function movmean() for this, but make sure that
-%you use it in the right way! The first example in the documentation is 
-%not what you need, since our controller cannot see into the future. 
-
-%Hint 2: finddelay(x,y) estimates the delay between two signals in frames.
-
-window_size = [1 5 10 20 30 50 100];
-
-figure('Name','Clipped Range')
-for i = (1:length(window_size))
-    x_filtered = movmean(x_raw, [window_size(i)-1 0]);
-    x_filtered_velocity = (x_filtered(2:end)-x_filtered(1:end-1))/dt;
-    delay = finddelay(x_velocity, x_filtered_velocity, 1000);
-
-    disp("Window size: " + num2str(window_size(i)) + "; Estimated Delay: " + num2str(delay))
-    plot(t(2:end),x_filtered_velocity)
-    hold on
-end
-Legend = cell(length(window_size),1);
-for i = (1:length(window_size))
-    Legend{i}=strcat('x velocity, filtered, window size: ', num2str(window_size(i)));
-end
-
-legend(Legend)
-xlim([10 12])
-title('Clipped filtered Velocity')
-xlabel('t [s]')
-ylabel('[mm]')
-grid on
-hold off
-
-
-
-
 
