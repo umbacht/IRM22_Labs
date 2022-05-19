@@ -194,7 +194,7 @@ int main(){
     double u_y = 0;
     double e_x = 0;
     double e_y = 0;
-    double integ_windup_limit = 2000;
+    double integ_windup_limit = 100;
     //Logfile with datetime as filename
     char datetime[80];
     strftime(datetime,80,"%Y-%m-%d_%H-%M-%S_pid_log.txt", info);

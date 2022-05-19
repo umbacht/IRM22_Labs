@@ -137,7 +137,7 @@ double butterWorth(const double * x, const double * y){
 int stepResponse(const double current_time, double* x_ref, double* y_ref,
                  double* vx_ref, double* vy_ref){
   
-  double step_start = 5;
+  double step_start = 10;
   double step_distance = 80;
   if (current_time < step_start){
     *x_ref = 0;
@@ -156,7 +156,7 @@ int circularTrajectory(const double current_time, double* x_ref, double* y_ref,
                  double* vx_ref, double* vy_ref){
   
   double traj_start = 3;
-  double num_of_traj = 5;
+  double num_of_traj = 2;
   double period = 4; //seconds
   double R = 80; //radius
 
@@ -166,10 +166,10 @@ int circularTrajectory(const double current_time, double* x_ref, double* y_ref,
     /* ********************* */
     /* Insert your Code here */
     /* ********************* */
-  if (current_time < traj_start || current_time > traj_start+ num_of_traj*period){
-  *x_ref = 0; *y_ref = 0;
+  if (current_time < traj_start || current_time > traj_start+ num_of_traj*period){ 
+    *x_ref = 0; *y_ref = 0;
   } else{
-  *x_ref = cos(2*M_PI*current_time/period)*R; *y_ref = sin(2*M_PI*current_time/period)*R;
+    *x_ref = cos(2*M_PI*current_time/period)*R; *y_ref = sin(2*M_PI*current_time/period)*R;
   }
   *vx_ref = 0;
   *vy_ref = 0;
