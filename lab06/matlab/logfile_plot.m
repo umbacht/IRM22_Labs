@@ -6,7 +6,7 @@ file = uigetfile('*.txt');
 
 %TODO
 %adjust here which part of the plot to see
-t_start = 5;
+t_start = 6;
 t_end = 17;
 pos_ylim = [-10 120];
 vel_ylim = [-500 500];

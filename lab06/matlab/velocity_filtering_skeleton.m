@@ -120,7 +120,7 @@ legend(Legend, 'Location','south')
 xlim([10 12])
 title('Clipped n, Clipped Velocity Trajectory (filtered positions)')
 xlabel('t [s]')
-ylabel('[mm]')
+ylabel('[mm/s]')
 grid on
 hold off
 
