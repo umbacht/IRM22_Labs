@@ -1,6 +1,0 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory `/Users/thomas/Library/Mobile Documents/com~apple~CloudDocs/iCloud Drive/ETH/Master/FS22/Introduction to Robotics and Mechatronics/IRM22_Labs'
-make: Leaving directory `/Users/thomas/Library/Mobile Documents/com~apple~CloudDocs/iCloud Drive/ETH/Master/FS22/Introduction to Robotics and Mechatronics/IRM22_Labs'
- 
-make: *** No targets specified and no makefile found.  Stop.
-

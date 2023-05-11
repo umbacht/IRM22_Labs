@@ -5,4 +5,4 @@ manipulate_two_numbers
 hello_world
 *.o
 *.zip
-*.DS_Store
+*.vscode
